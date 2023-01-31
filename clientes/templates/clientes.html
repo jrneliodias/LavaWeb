@@ -17,11 +17,11 @@
       <div class="row">
         <div class="col-md">
           <p>Nome:</p>
-          <input type="text" class="form-control" placeholder="Primeiro nome" />
+          <input type="text" class="form-control" placeholder="Primeiro nome" name = "nome" value = "{{nome}}"/>
         </div>
         <div class="col-md">
           <p>Sobrenome:</p>
-          <input type="text" class="form-control" placeholder="Sobrenome" />
+          <input type="text" class="form-control" placeholder="Sobrenome" name = "sobrenome" value = "{{sobrenome}}"/>
         </div>
       </div>
       <br />
@@ -31,6 +31,7 @@
         class="form-control"
         placeholder="nome@email.com"
         name="email"
+        value = "{{email}}"
       />
       <br />
       <p>CPF:</p>
@@ -57,3 +58,5 @@
 </div>
 <script src="{% static 'clientes/js/clientes.js' %}"></script>
 {% endblock %}
+
+
