@@ -23,7 +23,8 @@ def clientes(request):
             return render(request,'clientes.html',
                                 {'nome':nome,
                                  'sobrenome':sobrenome,
-                                 'email': email})
+                                 'email': email,
+                                 'carros': zip(carros,placas,anos)})
         
         email_validation = r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
         
@@ -31,7 +32,8 @@ def clientes(request):
             return render(request,'clientes.html',
                                 {'nome':nome,
                                  'sobrenome':sobrenome,
-                                 'cpf': cpf})
+                                 'cpf': cpf,
+                                 'carros': zip(carros,placas,anos)})
         
         # Criar o cliente na tabela
         cliente = Cliente(

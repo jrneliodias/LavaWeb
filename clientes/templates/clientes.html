@@ -48,7 +48,22 @@
           >+ Adicionar um carro</span
         >
 
-        <div id="form-carro"></div>
+        <div id="form-carro">
+          {% for carro,placa,ano in carros %}
+          <br>
+          <div class="row">
+            <div class="col-md">
+              <input type="text" placeholder="Carro" class="form-control" name="carro" value = "{{carro}}"/>
+            </div>
+            <div class="col-md">
+              <input type="text" placeholder="Placa" class="form-control" name="placa" value= "{{placa}}"/>
+            </div>
+            <div class="col-md">
+              <input type="number" placeholder="Ano" class="form-control" name="ano" value = "{{ano}}"/>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
       </div>
 
       <br />
