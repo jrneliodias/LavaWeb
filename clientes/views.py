@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from .models import Cliente, Carro
 import re
 # Create your views here.
 def clientes(request):
     if request.method == "GET":
-        return render(request,'clientes.html')
+        clientes_list = Cliente.objects.all()
+        return render(request,'clientes.html',
+                      {'clientes':clientes_list})
     
     elif request.method == "POST":
         # Receber os dados do formulário
@@ -43,9 +45,14 @@ def clientes(request):
             cpf = cpf
         )
         cliente.save()
+        
         # Inserir na tabela de carros
         for carro, placa,ano in zip(carros,placas,anos):
             carro = Carro(carro = carro, placa =placa,ano=ano,cliente =cliente)
             carro.save()
             
         return HttpResponse('Teste')
+    
+def att_cliente(request):
+    print('teste')
+    return JsonResponse({"teste": 1})

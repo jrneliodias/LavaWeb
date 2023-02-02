@@ -5,6 +5,7 @@
   margin-top: 40px;
   text-align: center;
   padding: 20px;
+  cursor: pointer;
 }
 
 .text-card {
@@ -25,3 +26,7 @@
   padding: 5px;
   font-size: 30px;
 }
+
+#att_cliente{
+  display:none;
+  }
