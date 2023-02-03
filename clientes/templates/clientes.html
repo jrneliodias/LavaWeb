@@ -3,25 +3,41 @@
 {% endblock %} {% block 'dashboard' %}
 <div class="container">
   <div class="row">
-    <div  onclick="exibir_form('1')" class="col-md card-dashboard">
+    <div onclick="exibir_form('1')" class="col-md card-dashboard">
       <p class="text-card">Adicionar clientes</p>
     </div>
 
-    <div id = "atualizar-clientes" onclick="exibir_form('2')" class="col-md card-dashboard">
+    <div
+      id="atualizar-clientes"
+      onclick="exibir_form('2')"
+      class="col-md card-dashboard"
+    >
       <p class="text-card">Atualizar cliente</p>
     </div>
   </div>
-  <div id = "adicionar-cliente" class="adicionar-cliente">
+  <div id="adicionar-cliente" class="adicionar-cliente">
     <form action="{% url 'clientes' %}" method="POST">
       {% csrf_token %}
       <div class="row">
         <div class="col-md">
           <p>Nome:</p>
-          <input type="text" class="form-control" placeholder="Primeiro nome" name = "nome" value = "{{nome}}"/>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Primeiro nome"
+            name="nome"
+            value="{{nome}}"
+          />
         </div>
         <div class="col-md">
           <p>Sobrenome:</p>
-          <input type="text" class="form-control" placeholder="Sobrenome" name = "sobrenome" value = "{{sobrenome}}"/>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Sobrenome"
+            name="sobrenome"
+            value="{{sobrenome}}"
+          />
         </div>
       </div>
       <br />
@@ -31,7 +47,7 @@
         class="form-control"
         placeholder="nome@email.com"
         name="email"
-        value = "{{email}}"
+        value="{{email}}"
       />
       <br />
       <p>CPF:</p>
@@ -50,16 +66,34 @@
 
         <div id="form-carro">
           {% for carro,placa,ano in carros %}
-          <br>
+          <br />
           <div class="row">
             <div class="col-md">
-              <input type="text" placeholder="Carro" class="form-control" name="carro" value = "{{carro}}"/>
+              <input
+                type="text"
+                placeholder="Carro"
+                class="form-control"
+                name="carro"
+                value="{{carro}}"
+              />
             </div>
             <div class="col-md">
-              <input type="text" placeholder="Placa" class="form-control" name="placa" value= "{{placa}}"/>
+              <input
+                type="text"
+                placeholder="Placa"
+                class="form-control"
+                name="placa"
+                value="{{placa}}"
+              />
             </div>
             <div class="col-md">
-              <input type="number" placeholder="Ano" class="form-control" name="ano" value = "{{ano}}"/>
+              <input
+                type="number"
+                placeholder="Ano"
+                class="form-control"
+                name="ano"
+                value="{{ano}}"
+              />
             </div>
           </div>
           {% endfor %}
@@ -72,14 +106,25 @@
   </div>
   <div id="att_cliente">
     <p></p>
-    <select id = "cliente-select"  onchange = "dados_cliente()" class="form-control">
+    <select id="cliente-select" onchange="dados_cliente()" class="form-control">
       {% for cliente in clientes %}
       <option value="{{cliente.id}}">{{cliente.nome}}</option>
       {% endfor %}
     </select>
+    <br />
+    <hr />
+    <div id="form-att-cliente">
+      <p>Nome:</p>
+      <input type="text" class="form-control" id="nome" />
+      <p>Sobrenome</p>
+      <input type="text" class="form-control" id="sobrenome" />
+      <p>E-mail:</p>
+      <input type="text" class="form-control" id="email" />
+      <p>CPF:</p>
+      <input type="text" class="form-control" id="cpf" />
+    </div>
   </div>
 </div>
 
 <script src="{% static 'clientes/js/clientes.js' %}"></script>
 {% endblock %}
-
