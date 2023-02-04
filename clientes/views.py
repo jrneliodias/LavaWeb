@@ -58,6 +58,22 @@ def clientes(request):
 def att_cliente(request):
     id_cliente = request.POST.get('id_cliente')
     cliente = Cliente.objects.filter(id = id_cliente)
+    carros_cliente = Carro.objects.filter(cliente = cliente[0])
+    
     cliente_str= serializers.serialize('json',cliente)
+    carros_cliente_str = serializers.serialize('json',carros_cliente)
+    
+    # Como cliente é apenas um com esse id, então
     cliente_json = json.loads(cliente_str)[0]['fields']
-    return JsonResponse(cliente_json)
+    # O carro temos uma lista de carros, en
+    cliente_carros_json = json.loads(carros_cliente_str)
+    cliente_carros_json = [{'id': carro['pk'], 'fields':carro['fields']} for carro in cliente_carros_json]
+    data = {'cliente': cliente_json,'carros':cliente_carros_json}
+    
+    return JsonResponse(data)
+
+def update_carro(request,id):
+    nome_carro = request.POST.get('carro')
+    placa_carro = request.POST.get('placa')
+    ano_carro = request.POST.get('ano')
+    return HttpResponse('nome_carro')
