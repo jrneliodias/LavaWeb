@@ -4,13 +4,13 @@ function add_carro() {
     html = `<br />
             <div class="row">
             <div class="col-md">
-                <input type="text"o" class="form-control" name="carro" />
+                <input type="text" class="form-control" name="carro"  placeholder="Carro"/>
             </div>
             <div class="col-md">
-                <input type="text"a" class="form-control" name="placa" />
+                <input type="text" class="form-control" name="placa"  placeholder="Placa" />
             </div>
             <div class="col-md">
-                <input type="number" class="form-control" name="ano" />
+                <input type="number" class="form-control" name="ano"  placeholder="Ano"/>
             </div>
             </div>`;
 

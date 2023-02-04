@@ -60,8 +60,8 @@
       <hr style="background-color: gray" />
       <div class="add-carros">
         <h3>Carros</h3>
-        <span class="btn-add-carros" onclick="add_carro()"
-          >+ Adicionar um carro</span
+        <button type="button" class="btn btn-primary" onclick="add_carro()"
+          >+ Adicionar um carro</button
         >
 
         <div id="form-carro">
@@ -101,12 +101,13 @@
       </div>
 
       <br />
-      <input type="submit" value="Cadastrar" class="btn-principal" />
+      <input type="submit" class="btn btn-success btn-lg" value="Cadastrar" class="btn-principal" />
     </form>
   </div>
   <div id="att_cliente">
-    <p></p>
+    <p>Clientes</p>
     <select id="cliente-select" onchange="dados_cliente()" class="form-control">
+      {{clientes}}
       {% for cliente in clientes %}
       <option value="{{cliente.id}}">{{cliente.nome}}</option>
       {% endfor %}
