@@ -1,7 +1,21 @@
 {% extends "base.html" %} {% load static %} {% block 'head' %}
 <link rel="stylesheet" href="{% static 'clientes/css/clientes.css' %}" />
-{% endblock %} {% block 'dashboard' %}
+{% endblock %} 
+
+
+{% block 'dashboard' %}
+
+
 <div class="container">
+  
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+      {{message}}
+    </div>
+  {%endfor%}
+{% endif %} 
+
   <div class="row">
     <div onclick="exibir_form('1')" class="col-md card-dashboard">
       <p class="text-card">Adicionar clientes</p>
@@ -15,7 +29,7 @@
       <p class="text-card">Atualizar cliente</p>
     </div>
   </div>
-  <br>
+  <br />
   <div id="adicionar-cliente" class="adicionar-cliente">
     <form action="{% url 'clientes' %}" method="POST">
       {% csrf_token %}
@@ -61,9 +75,9 @@
       <hr style="background-color: gray" />
       <div class="add-carros">
         <h3>Carros</h3>
-        <button type="button" class="btn btn-primary" onclick="add_carro()"
-          >+ Adicionar um carro</button
-        >
+        <button type="button" class="btn btn-primary" onclick="add_carro()">
+          + Adicionar um carro
+        </button>
 
         <div id="form-carro">
           {% for carro,placa,ano in carros %}
@@ -102,13 +116,18 @@
       </div>
 
       <br />
-      <input type="submit" class="btn btn-success btn-lg" value="Cadastrar" class="btn-principal" />
+      <input
+        type="submit"
+        class="btn btn-success btn-lg"
+        value="Cadastrar"
+        class="btn-principal"
+      />
     </form>
   </div>
   <div id="att_cliente">
     <p>Clientes</p>
     <select id="cliente-select" onchange="dados_cliente()" class="form-control">
-      <option ></option>
+      <option></option>
       {% for cliente in clientes %}
       <option value="{{cliente.id}}">{{cliente.nome}}</option>
       {% endfor %}
@@ -116,7 +135,7 @@
     <br />
     <hr />
     <div id="form-att-cliente">
-      <input type="hidden" id = "id">
+      <input type="hidden" id="id" />
       <p>Nome:</p>
       <input type="text" class="form-control" id="nome" />
       <p>Sobrenome</p>
@@ -125,8 +144,13 @@
       <input type="text" class="form-control" id="email" />
       <p>CPF:</p>
       <input type="text" class="form-control" id="cpf" />
-      <br>
-      <input onclick="update_cliente()" type="submit" value ="Salvar" class="btn btn-success"  />
+      <br />
+      <input
+        onclick="update_cliente()"
+        type="submit"
+        value="Salvar"
+        class="btn btn-success"
+      />
       <hr />
       <h3>Carros:</h3>
       <div id="carros"></div>

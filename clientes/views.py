@@ -5,6 +5,9 @@ import re, json
 from django.core.serializers import serialize
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
+from django.contrib import messages
+from django.contrib.messages import constants
+
 # views here.
 def clientes(request):
     if request.method == "GET":
@@ -107,11 +110,11 @@ def excluir_carro(request,id):
     
 def update_cliente(request,id):
     
-    body = json.loads(request.body)
-    nome = body['nome']
-    sobrenome = body['sobrenome']
-    cpf  = body['cpf']
-    email = body['email']
+    body        = json.loads(request.body)
+    nome        = body['nome']
+    sobrenome   = body['sobrenome']
+    cpf         = body['cpf']
+    email       = body['email']
     
     cliente = get_object_or_404(Cliente,id=id)
     try:    
@@ -120,6 +123,8 @@ def update_cliente(request,id):
         cliente.cpf = cpf
         cliente.email = email
         cliente.save()
+        messages.add_message(request,constants.SUCCESS, "Cliente atualizado com sucesso!")
+        
         return JsonResponse({'status':'200',
                              'nome': nome,
                              'sobrenome': sobrenome,

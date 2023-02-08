@@ -122,7 +122,14 @@ function update_cliente() {
     }).then(function (result) {
         return result.json()
     }).then(function (data) {
-        console.log(data)
+        if(data['status'] == '200'){
+            nome = data['nome']
+            sobrenome = data['sobrenome']
+            email = data['email']
+            cpf = data['cpf']
+        } else{
+            console.log('Ocorreu um erro')
+        }
     })
 
 }

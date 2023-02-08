@@ -3,6 +3,5 @@ from .models import Cliente,Carro
 
 
 # Register your models here.
-@admin.register(Cliente,Carro)
-class ClientesAdmin(admin.ModelAdmin):
-    pass
+admin.site.register(Cliente)
+admin.site.register(Carro)
