@@ -15,6 +15,7 @@
       <p class="text-card">Atualizar cliente</p>
     </div>
   </div>
+  <br>
   <div id="adicionar-cliente" class="adicionar-cliente">
     <form action="{% url 'clientes' %}" method="POST">
       {% csrf_token %}
@@ -107,7 +108,7 @@
   <div id="att_cliente">
     <p>Clientes</p>
     <select id="cliente-select" onchange="dados_cliente()" class="form-control">
-      {{clientes}}
+      <option ></option>
       {% for cliente in clientes %}
       <option value="{{cliente.id}}">{{cliente.nome}}</option>
       {% endfor %}
@@ -115,6 +116,7 @@
     <br />
     <hr />
     <div id="form-att-cliente">
+      <input type="hidden" id = "id">
       <p>Nome:</p>
       <input type="text" class="form-control" id="nome" />
       <p>Sobrenome</p>
@@ -123,6 +125,8 @@
       <input type="text" class="form-control" id="email" />
       <p>CPF:</p>
       <input type="text" class="form-control" id="cpf" />
+      <br>
+      <input onclick="update_cliente()" type="submit" value ="Salvar" class="btn btn-success"  />
       <hr />
       <h3>Carros:</h3>
       <div id="carros"></div>

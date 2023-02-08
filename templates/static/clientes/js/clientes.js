@@ -51,6 +51,9 @@ function dados_cliente() {
 
         document.getElementById('form-att-cliente').style.display = 'block'
 
+        id = document.getElementById('id')
+        id.value = data['cliente_id']
+
         nome = document.getElementById('nome')
         nome.value = data['cliente']['nome']
 
@@ -86,11 +89,40 @@ function dados_cliente() {
                                     <div class="col-md">
                                     <input type="number" class="form-control" name="ano"value = "${ano_carro}"/>
                                     </div>
+                                    <div class="col-md d-flex justify-content-end pr-0">
+                                    <input type="submit" class="btn btn-success"  value ="Atualizar Carro"></input>
+                                    </div>
+                                    </form>
                                     <div class="col-md">
-                                    <input type="submit" class="btn btn-success" value ="Atualizar"></input>
+                                    <a href='/clientes/excluir_carro/${id_carro}' class="btn btn-outline-danger" >Excluir</a>
                                     </div>
-                                    </div>
-                                    </form>`
+                                    </div>`
         }
     })
+}
+
+function update_cliente() {
+    nome = document.getElementById('nome').value
+    sobrenome = document.getElementById('sobrenome').value
+    email = document.getElementById('email').value
+    cpf = document.getElementById('cpf').value
+    id = document.getElementById('id').value
+
+    fetch('/clientes/update_cliente/' + id, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrf_token,
+        },
+        body: JSON.stringify({
+            nome: nome,
+            sobrenome: sobrenome,
+            email: email,
+            cpf: cpf
+        })
+    }).then(function (result) {
+        return result.json()
+    }).then(function (data) {
+        console.log(data)
+    })
+
 }

@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse,JsonResponse
 from .models import Cliente, Carro
-import re
-from django.core import serializers
-import json
+import re, json
+from django.core.serializers import serialize
 from django.views.decorators.csrf import csrf_exempt
+from django.urls import reverse
 # views here.
 def clientes(request):
     if request.method == "GET":
@@ -62,15 +62,17 @@ def att_cliente(request):
     cliente = Cliente.objects.filter(id = id_cliente)
     carros_cliente = Carro.objects.filter(cliente = cliente[0])
     
-    cliente_str= serializers.serialize('json',cliente)
-    carros_cliente_str = serializers.serialize('json',carros_cliente)
+    cliente_str= serialize('json',cliente)
+    carros_cliente_str = serialize('json',carros_cliente)
     
     # Como cliente é apenas um com esse id, então
     cliente_json = json.loads(cliente_str)[0]['fields']
-    # O carro temos uma lista de carros, en
+    cliente_id = json.loads(cliente_str)[0]['pk']
+
+    # O carro temos uma lista de carros, então devemos criar um dicionário
     cliente_carros_json = json.loads(carros_cliente_str)
     cliente_carros_json = [{'id': carro['pk'], 'fields':carro['fields']} for carro in cliente_carros_json]
-    data = {'cliente': cliente_json,'carros':cliente_carros_json}
+    data = {'cliente': cliente_json,'cliente_id': cliente_id, 'carros':cliente_carros_json}
     
     return JsonResponse(data)
 
@@ -86,8 +88,42 @@ def update_carro(request,id):
     if list_carros.exists():
         return HttpResponse('Placa do carro já existe')
     
+    #atualizar os dados carro
     carro.carro = nome_carro
     carro.placa = placa_carro
     carro.ano = ano_carro
     carro.save()
+    
     return HttpResponse('Carro atualizado com sucesso')
+
+def excluir_carro(request,id):
+    try:
+        carro = Carro.objects.get(id = id)
+        carro.delete()
+        return redirect(reverse('clientes') + f'?aba=att_cliente&id_cliente={id}')
+    
+    except:
+        return redirect(reverse('clientes') + f'?aba=att_cliente&id_cliente={id}')
+    
+def update_cliente(request,id):
+    
+    body = json.loads(request.body)
+    nome = body['nome']
+    sobrenome = body['sobrenome']
+    cpf  = body['cpf']
+    email = body['email']
+    
+    cliente = get_object_or_404(Cliente,id=id)
+    try:    
+        cliente.nome = nome
+        cliente.sobrenome = sobrenome
+        cliente.cpf = cpf
+        cliente.email = email
+        cliente.save()
+        return JsonResponse({'status':'200',
+                             'nome': nome,
+                             'sobrenome': sobrenome,
+                             'email':email,
+                             'cpf':cpf})
+    except:
+        return JsonResponse({'status': '500'})

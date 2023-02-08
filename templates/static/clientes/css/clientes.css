@@ -34,3 +34,7 @@
 #form-att-cliente{
   display:none;
 }
+
+.col-md .atualizar{
+  display: none;
+}
