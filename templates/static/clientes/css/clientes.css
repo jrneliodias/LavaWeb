@@ -38,3 +38,8 @@
 .col-md .atualizar{
   display: none;
 }
+
+
+td{
+  text-align: right;
+}

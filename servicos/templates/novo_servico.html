@@ -1,1 +1,13 @@
-estou no novo servico
+{% extends "base.html" %} {% load static %} {% block 'head' %}
+<link rel="stylesheet" href="{% static 'clientes/css/clientes.css' %}" />
+{% endblock %} {% block 'dashboard' %}
+<br />
+<br />
+<div class="container">
+    <form action="{% url 'novo_servico' %}" class = "p-1" method = "POST">
+        {{form}}
+        <input type="submit" class="btn btn-success" value="Salvar">
+    </form>
+</div>
+
+{%endblock%}
