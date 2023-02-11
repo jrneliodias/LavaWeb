@@ -3,11 +3,17 @@
 {% endblock %} {% block 'dashboard' %}
 <br />
 <br />
+
 <div class="container">
-    <form action="{% url 'novo_servico' %}" class = "p-1" method = "POST">
-        {{form}}
-        <input type="submit" class="btn btn-success" value="Salvar">
-    </form>
+  {% if messages %} {% for message in messages %}
+  <div class="alert alert-success" role="alert">{{message}}</div>
+  {%endfor%} {% endif %}
+
+  <form action="{% url 'novo_servico' %}" class="p-1" method="POST">
+    {% csrf_token %} {{form}}
+    <br />
+    <input type="submit" class="btn btn-success" value="Salvar" />
+  </form>
 </div>
 
 {%endblock%}
